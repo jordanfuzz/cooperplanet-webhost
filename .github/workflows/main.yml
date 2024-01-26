@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - master
+  repository_dispatch:
+    types: [default]
+jobs:
+  deploy:
+    name: deploy
+    runs-on: self-hosted
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: start nginx
+        run: docker compose up -d --force-recreate --build
